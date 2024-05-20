@@ -1,9 +1,10 @@
 from flask import Flask, render_template, request
 from azure.cosmos import CosmosClient
+import uuid
 
 app = Flask(__name__)
 
-DATABASE_NAME = "azurecosmosemailserver"
+DATABASE_NAME = "ToDoList"
 CONTAINER_NAME = "Items"
 
 part1 = "AccountEndpoint=https://azurecosmosemails"
@@ -25,7 +26,10 @@ def index():
 @app.route('/check_spam', methods=['POST'])
 def check_spam():
     email_text = request.form['email_text']
-    container.create_item(email_text)
+    data = {}
+    data["id"] = str(uuid.uuid4())
+    data["email"] = email_text
+    container.create_item(data)
     # Dummy spam check logic
     if "spam" in email_text.lower():
         result = "This is spam."
