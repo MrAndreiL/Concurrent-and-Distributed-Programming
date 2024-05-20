@@ -1,11 +1,5 @@
 from flask import Flask, render_template, request
-from flask import json
-import uuid
-import asyncio
-from azure.servicebus.aio import ServiceBusClient
-from azure.servicebus import ServiceBusMessage
 from azure.cosmos import CosmosClient
-from azure.messaging.webpubsubservice import WebPubSubServiceClient
 
 app = Flask(__name__)
 
